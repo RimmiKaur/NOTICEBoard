@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/white"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="@dimen/dimens_4dp"
+
+    app:cardUseCompatPadding="true">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="140dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:fontFamily="cursive"
+            android:text="Selena Gomez"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <ScrollView
+            android:id="@+id/all_post_scroll_audio"
+            android:layout_width="match_parent"
+            android:layout_height="726dp"
+            android:layout_below="@id/user_name">
+
+            <RelativeLayout
+                android:id="@+id/all_post_layout_border"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:padding="12dp">
+
+
+                <ImageView
+                    android:id="@+id/all_post_image"
+                    android:layout_width="300dp"
+                    android:layout_height="400dp"
+                    android:layout_below="@id/all_post_text_view"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/white"
+                    android:src="@drawable/selsel" />
+
+                <TextView
+                    android:id="@+id/all_post_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="12dp"
+                    android:text="vfvfvfvfvfvf"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/colorLightGrey"
+                    android:textSize="18dp" />
+
+                <RelativeLayout
+                    android:id="@+id/all_post_relative_layout_for_displaying_audio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/all_post_image"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="18dp">
+
+                    <ViewStub
+                        android:id="@+id/all_post_audio_layout_stub"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.75"
+                        android:inflatedId="@+id/message_layout" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>

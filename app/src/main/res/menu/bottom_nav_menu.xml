@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+
+    <item
+        android:id="@+id/add_photos"
+        android:enabled="true"
+        android:icon="@drawable/ic_add_photo"
+        android:title="add_image"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/gif"
+        android:enabled="true"
+        android:icon="@drawable/ic_gif"
+        android:title="gif"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/mic"
+        android:enabled="true"
+        android:icon="@drawable/ic_mic"
+        android:title="mic"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/nav_send"
+        android:enabled="true"
+        android:icon="@drawable/ic_send"
+        android:title="send"
+        app:showAsAction="ifRoom" />
+</menu>

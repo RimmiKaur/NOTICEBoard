@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/inner_background_image"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_centerInParent="true"
+    tools:context=".Fragments.Edit_profile_Fragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/login_cardview"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardElevation="20dp"
+        app:cardCornerRadius="16dp">
+
+
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/reg_profile_pic_imageview"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_profile_pic"
+                    app:civ_border_color="@color/colorshadow"
+                    app:civ_border_width="2dp"
+                    android:layout_marginBottom="10dp"
+                    app:civ_shadow="true"
+                    app:civ_shadow_color="@color/colorshadow"
+                    app:civ_shadow_radius="10dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/name_textinputlayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/reg_profile_pic_imageview"
+                    android:layout_marginTop="4dp"
+                    android:hint="@string/name_hint"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="30"
+                    android:layout_marginBottom="10dp"
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/ic_name">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/name_textinputedittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/mobile_textinputlayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name_textinputlayout"
+                    android:layout_marginTop="6dp"
+                    android:hint="@string/mobile_hint"
+                    android:layout_marginBottom="10dp"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="30"
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/ic_phone">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/mobile_textinputedittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/dob_textinputlayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/mobile_textinputlayout"
+                    android:layout_marginTop="6dp"
+                    android:hint="@string/dob_hint"
+                    android:layout_marginBottom="10dp"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="30"
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/ic_calendar">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/dob_textinputedittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/gender_textinputlayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/dob_textinputlayout"
+                    android:layout_marginTop="6dp"
+                    android:hint="Please enter your gender"
+                    android:layout_marginBottom="10dp"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="30"
+                    app:errorEnabled="true"
+
+                    app:startIconDrawable="@drawable/ic_genderr">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/gender_textinputedittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+                <Button
+                    android:id="@+id/changes_outlinedButton"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/gender_textinputlayout"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="6dp"
+                    android:text="Save changes"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/black" />
+
+
+            </RelativeLayout>
+
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

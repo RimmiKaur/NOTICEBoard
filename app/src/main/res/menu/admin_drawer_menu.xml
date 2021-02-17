@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view1"
+    >
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_your_post1"
+            android:icon="@drawable/post"
+            android:title="Your posts" />
+
+        <item
+            android:id="@+id/nav_create_post1"
+            android:icon="@drawable/ic_add_post"
+            android:title="Add post" />
+        <item
+            android:id="@+id/nav_notice_group1"
+            android:icon="@drawable/ic_notice_group"
+            android:title="Notice groups" />
+        <item
+            android:id="@+id/nav_create_group1"
+            android:icon="@drawable/ic_chat"
+            android:title="Create group" />
+
+    </group>
+
+</menu>

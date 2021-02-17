@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.Make_a_post_Fragment"
+    android:background="@drawable/inner_background_image"
+
+    android:padding="20dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:padding="20dp"
+        app:cardElevation="20dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="20dp"
+       >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
+                android:layout_width="353dp"
+                android:layout_height="61dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/white"
+                app:itemIconTint="@color/black"
+
+                app:itemTextColor="@android:color/background_dark"
+                app:labelVisibilityMode="unlabeled"
+                app:menu="@menu/bottom_nav_menu" />
+
+            <ScrollView
+                android:id="@+id/scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="65dp"
+>
+
+
+                <RelativeLayout
+                    android:id="@+id/layout_border"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="4dp"
+
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_delete_drag_drop"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        android:id="@+id/delete_drag_and_drop"
+                        android:visibility="invisible"
+                        >
+
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/add_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        android:src="@drawable/selsel"
+                        android:layout_below="@id/make_post_edittext"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+
+                        >
+
+                    </ImageView>
+
+                    <EditText
+                        android:id="@+id/make_post_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="Write your post"
+                        android:imeOptions="actionDone"
+                        android:inputType="textMultiLine"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/colorLightGrey" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_below="@id/add_image"
+                        >
+                        <ViewStub
+                            android:id="@+id/layout_stub"
+                            android:inflatedId="@+id/message_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout="@layout/music_player_view"
+                            android:layout_weight="0.75" />
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+            </ScrollView>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
