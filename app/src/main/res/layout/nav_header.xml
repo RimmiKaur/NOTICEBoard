@@ -3,16 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="270dp"
-    android:background="@color/colorAccent"
+    android:background="@color/common_google_signin_btn_text_dark_disabled"
+
     android:gravity="bottom"
     android:padding="16dp"
+
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/front_page_profile_pic"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-         />
+        android:layout_width="141dp"
+        android:layout_height="141dp" />
 
     <TextView
         android:id="@+id/front_page_name"

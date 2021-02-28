@@ -142,6 +142,7 @@ public class Login_Fragment extends Fragment implements View.OnClickListener {
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     Log.d(TAG,"Successfully signed in with: " + user.getEmail());
 
+
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");

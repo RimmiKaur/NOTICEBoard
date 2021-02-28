@@ -103,7 +103,7 @@ public class Front_Page extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Edit_profile_Fragment()).addToBackStack(null).commit();
                         break;
                     case R.id.nav_notice_group:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new All_notices_Fragment() ).addToBackStack(null).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new List_of_groups_Fragment()).addToBackStack(null).commit();
                         break;
                     case R.id.nav_sign_out:
                         FirebaseAuth.getInstance().signOut();;

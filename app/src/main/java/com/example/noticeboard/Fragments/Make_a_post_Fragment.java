@@ -112,10 +112,9 @@ public class Make_a_post_Fragment extends Fragment implements BottomNavigationVi
         View view= inflater.inflate(R.layout.fragment_make_a_post, container, false);
         make_a_post_edittext=view.findViewById(R.id.make_post_edittext);
         stub = view.findViewById(R.id.layout_stub);
-        SimpleDateFormat date = new SimpleDateFormat("d_MMM_yyyy");
-        SimpleDateFormat time = new SimpleDateFormat("HH_mm_ss");
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-d");
         current_Date = date.format(new Date());
-        current_Time = time.format(new Date());
+
         drag_drop=view.findViewById(R.id.delete_drag_and_drop);
         random = new Random();
         navigation= view.findViewById(R.id.bottom_navigation);
@@ -123,10 +122,21 @@ public class Make_a_post_Fragment extends Fragment implements BottomNavigationVi
         navigation.setOnNavigationItemSelectedListener(this);
 
 
-        stub.setOnLongClickListener(this::onLongClick);
+        stub.setOnLongClickListener(this);
         add_image.setOnLongClickListener(this);
         drag_drop.setOnDragListener(this);
 
+        stub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                View.DragShadowBuilder mShadow = new View.DragShadowBuilder(v);
+//                ClipData data = ClipData.newPlainText("","");
+//                drag_drop.setVisibility(View.VISIBLE);
+//                toastMessage("yes"+v.getId());
+//                v.startDrag(data, mShadow, v, 0);
+                toastMessage("audio");
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference();
@@ -143,7 +153,7 @@ public class Make_a_post_Fragment extends Fragment implements BottomNavigationVi
                     // User is signed in
                     userID = user.getUid();
                     Log.d(TAG, "Hello there onAuthStateChanged:signed_in:" + user.getUid());
-                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    myRef.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             showData(snapshot);
@@ -292,11 +302,13 @@ public class Make_a_post_Fragment extends Fragment implements BottomNavigationVi
                         System.out.println("==========================pic_select"+pic_selected);
                         System.out.println("==========================image"+image_success[0]);
                         System.out.println("==========================audio"+audio_success[0]);
+                        System.out.println("==========================audio"+profile_pic);
                         if(!audio_success[0])
                             audiostringLink="null";
                         if((make_a_post_edittext.getText().toString()!=null || pic_selected==true)&& (image_success[0]==true || audio_success[0]==true)){
                             Post_Information post_information=new Post_Information(make_a_post_edittext.getText().toString(),photoStringLink,user_name,userID,audiostringLink,profile_pic);
                             myRef.child("Post").child(current_Date).child(key).setValue(post_information);
+                            System.out.println("==========================post sucessful");
                             toastMessage("post successful");
                         }
                         else
@@ -317,31 +329,31 @@ public class Make_a_post_Fragment extends Fragment implements BottomNavigationVi
 
     private void showData(@NotNull DataSnapshot dataSnapshot) {
         for(DataSnapshot ds : dataSnapshot.getChildren()){
+            System.out.println("================showdata");
+            System.out.println("================Users"+ds.getKey());
+         //   System.out.println("============================child"+ds.child("Users").hasChild("Administrative"));
+            if(ds.getKey().contains("Administrative")){
 
-            if(ds.getKey().contains("Users"))
-            {
-                if(ds.hasChild("Administrative")){
+                if(ds.hasChild(userID)){
 
-                    if(ds.child("Administrative").hasChild(userID)){
-
-                        user_name=ds.child("Administrative").child(userID).getValue(UserInformation.class).getName().toString();
-                        profile_pic=ds.child("Administrative").child(userID).getValue(UserInformation.class).getImageUrl().toString();
-                    }
+                    user_name=ds.child(userID).getValue(UserInformation.class).getName().toString();
+                    profile_pic=ds.child(userID).getValue(UserInformation.class).getImageUrl().toString();
                 }
-                else if(ds.hasChild("Professor")){
-                    if(ds.child("Professor").hasChild(userID))
-                    {
-                        user_name=ds.child("Professor").child(userID).getValue(UserInformation.class).getName().toString();
-                        profile_pic=ds.child("Professor").child(userID).getValue(UserInformation.class).getImageUrl().toString();
-                    }
+            }
+            else if(ds.getKey().contains("Professor")){
+                if(ds.hasChild(userID))
+                {
+                    user_name=ds.child(userID).getValue(UserInformation.class).getName().toString();
+                    profile_pic=ds.child(userID).getValue(UserInformation.class).getImageUrl().toString();
                 }
-                else if(ds.hasChild("Student")){
-                    if(ds.child("Student").hasChild(userID)){
-                        user_name=ds.child("Student").child(userID).getValue(UserInformation.class).getName().toString();
-                        profile_pic=ds.child("Student").child(userID).getValue(UserInformation.class).getImageUrl().toString();
-                    }
+            }
+            else if(ds.getKey().contains("Student")){
+                System.out.println("================Student");
+                if(ds.hasChild(userID)){
+                    System.out.println("================userID"+userID);
+                    user_name=ds.child(userID).getValue(UserInformation.class).getName().toString();
+                    profile_pic=ds.child(userID).getValue(UserInformation.class).getImageUrl().toString();
                 }
-
             }
         }
     }
@@ -535,14 +547,19 @@ public class Make_a_post_Fragment extends Fragment implements BottomNavigationVi
 
             case DragEvent.ACTION_DRAG_ENTERED:
                 ((ImageView) v).setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAccent), android.graphics.PorterDuff.Mode.MULTIPLY);
-                switch (view.getId()) {
-                    case R.id.layout_stub:
-                        toastMessage("stub");
-                        break;
-                    case R.id.add_image:
-                        toastMessage("image");
-                        break;
-                }
+               try{
+                   switch (view.getId()) {
+                           case R.id.layout_stub:
+                               toastMessage("stub");
+                               break;
+
+//                    case R.id.add_image:
+//                        toastMessage("image");
+//                        break;
+                   }
+               }catch(Exception e){
+                   System.out.println("==========================="+e.getMessage()+"   "+e.getCause());
+               }
                 v.invalidate();
                 return true;
 

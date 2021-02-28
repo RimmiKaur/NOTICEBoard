@@ -7,14 +7,31 @@
     android:layout_centerInParent="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.All_notices_Fragment">
+
+
     <com.tbuonomo.creativeviewpager.CreativeViewPager
         android:id="@+id/creativeViewPagerView"
         android:layout_width="match_parent"
-        android:layout_centerInParent="true"
         android:layout_height="match_parent"
+        android:background="@drawable/wallpaper"
+        >
 
 
+        <Spinner
+            android:id="@+id/date_spinner"
+            android:layout_width="199dp"
+            android:layout_height="wrap_content"
+            android:outlineSpotShadowColor="@color/white" />
+    </com.tbuonomo.creativeviewpager.CreativeViewPager>
 
-        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:fontFamily="cursive"
+        android:text="NO POST"
+        android:textSize="70dp"
+        android:textStyle="italic">
 
+    </TextView>
 </RelativeLayout>

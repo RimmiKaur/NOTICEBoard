@@ -35,10 +35,6 @@ public final class NatureCreativePagerAdapter implements CreativePagerAdapter {
         this.context = context;
     }
 
-//    public void Receive_post(ArrayList<Show_post> all_post){
-//        this.all_post=all_post;
-//    }
-
     @Override
     public View instantiateHeaderItem(@NotNull LayoutInflater inflater, @NotNull ViewGroup container, int position) {
         View headerRoot = inflater.inflate(R.layout.item_creative_content_nature, container, false);
@@ -98,8 +94,8 @@ public final class NatureCreativePagerAdapter implements CreativePagerAdapter {
 
     @Override
     public View instantiateContentItem(@NotNull LayoutInflater inflater, @NotNull ViewGroup container, int position) {
-        Intrinsics.checkParameterIsNotNull(inflater,"inflater");
-        Intrinsics.checkParameterIsNotNull(container,"container");
+//        Intrinsics.checkParameterIsNotNull(inflater,"inflater");
+//        Intrinsics.checkParameterIsNotNull(container,"container");
         View contentRoot = inflater.inflate(R.layout.item_creative_header_profile, container, false);
         ImageView imageView = (ImageView)contentRoot.findViewById(R.id.itemCreativeImage);
         Picasso.get().load(all_post.get(position).getProfile_pic()).into(imageView);

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/wallpaper"
     android:padding="16dp"
     tools:context=".Fragments.Login_Fragment">
 
@@ -14,7 +14,7 @@
         android:layout_height="120dp"
         android:src="@drawable/splash_icon"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="22dp"
          />
 
     <TextView

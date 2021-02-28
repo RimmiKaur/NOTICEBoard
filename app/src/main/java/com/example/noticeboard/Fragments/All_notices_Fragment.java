@@ -2,9 +2,11 @@ package com.example.noticeboard.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -12,6 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.noticeboard.Activity.MainActivity;
@@ -31,9 +36,19 @@ import com.tbuonomo.creativeviewpager.CreativeViewPager;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static android.content.ContentValues.TAG;
 
@@ -46,34 +61,93 @@ public class All_notices_Fragment extends Fragment {
     private DatabaseReference myRef,user_ref;
     private FirebaseUser user;
     String image = "null";
-    ArrayList<Post_Information> all_post=new ArrayList<Post_Information>();;
+    ArrayList<Post_Information> all_post=new ArrayList<Post_Information>();
+    ArrayList<String> dates_in_spinner=new ArrayList<>();
     CreativeViewPager creativeViewPager;
     NatureCreativePagerAdapter adapter;
-
+    Spinner spinner;
     //String
     private  String userID;
-
+    Date startDate;
+    String selection_date;
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view=inflater.inflate(R.layout.fragment_all_notices, container, false);
+        Spinner spinner =view.findViewById(R.id.date_spinner);
+        creativeViewPager=view.findViewById(R.id.creativeViewPagerView);
         ProgressDialog progressdialog = new ProgressDialog(getContext());
         progressdialog.setMessage("Loading....");
 
-        progressdialog.show();
-        new Handler().postDelayed(new Runnable() {
+        startDate=new Date();
+
+
+        LocalDate startDate = LocalDate.of(2021,2,2);
+        LocalDate endDate = LocalDate.now().plusDays(1);
+
+        long numOfDays = ChronoUnit.DAYS.between(startDate, endDate);
+        List<LocalDate> listOfDates1 = Stream.iterate(startDate, date -> date.plusDays(1)).limit(numOfDays).collect(Collectors.toList());
+        for (LocalDate date1 : listOfDates1) {
+            dates_in_spinner.add(date1.toString());
+        }
+
+
+
+        ArrayAdapter dataAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_expandable_list_item_1,listOfDates1 );
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void run() {
-                progressdialog.dismiss();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selection_date=dates_in_spinner.get(position);
+                myRef.child("Post").child(selection_date).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        all_post.clear();
+                        for(DataSnapshot ds : dataSnapshot.getChildren())
+                        {
+                            Post_Information post= new Post_Information();
+                            post=ds.getValue(Post_Information.class);
+                            System.out.println("############################"+post.getPost_edit_text());
+                            System.out.println("############################"+post.getPost_userId());
+                            System.out.println("############################"+post.getPost_username());
+                            all_post.add(post);
+                        }
+                        adapter=new NatureCreativePagerAdapter(getContext(),all_post);
+                        toastMessage("count"+String.valueOf(adapter.getCount()));
+                        try {
+                            creativeViewPager.setCreativeViewPagerAdapter(adapter);
+                        }catch (Exception e){
+                            System.out.println("=============================="+e.getCause()+"+++++"+e.getMessage());
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        toastMessage(databaseError.getMessage());
+                    }
+                });
+
+
+
 
             }
-        }, 6000);
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference();
         user_ref = mFirebaseDatabase.getReference();
         mAuth = FirebaseAuth.getInstance();
+
+
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -83,66 +157,31 @@ public class All_notices_Fragment extends Fragment {
                     // User is signed in
                     userID = user.getUid();
                     Log.d(TAG, ".................................onAuthStateChanged:signed_in:" + user.getUid());
-                    toastMessage("..............Successfully signed in with: " + user.getEmail());
-                    toastMessage("Entered auth");
-                    myRef.child("Users").addValueEventListener(new ValueEventListener() {
+                    myRef.child("Post").child(endDate.toString()).addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for(DataSnapshot ds : snapshot.getChildren()){
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            // This method is called once with the initial value and again
+                            // whenever data at this location is updated.
+                            // toastMessage("entered post");
+                            all_post.clear();
+                            // showData(dataSnapshot);
 
-
-
-                                if(ds.getKey().contains("Administrative")){
-                                    image= ds.child(userID).getValue(UserInformation.class).getImageUrl();
-                                }
-                                else if(ds.getKey().contains("Professor")){
-                                        image= ds.child(userID).getValue(UserInformation.class).getImageUrl();
-                                    }
-                                else if(ds.getKey().contains("Student")){
-                                        image= ds.child(userID).getValue(UserInformation.class).getImageUrl();
-                                    }
-                                }
-
-                          //  toastMessage("Entered user");
-//                                        toastMessage("image00000000"+image);
-
+                            for(DataSnapshot ds : dataSnapshot.getChildren())
+                            {
+                                Post_Information post= new Post_Information();
+                                post=ds.getValue(Post_Information.class);
+                                System.out.println("############################"+post.getPost_userId());
+                                System.out.println("############################"+post.getPost_username());
+                                all_post.add(post);
+                            }
+                            adapter=new NatureCreativePagerAdapter(getContext(),all_post);;
+                            creativeViewPager.setCreativeViewPagerAdapter(adapter);
                         }
-
                         @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
+                        public void onCancelled(DatabaseError databaseError) {
+                            toastMessage(databaseError.getMessage());
                         }
                     });
-
-
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            myRef.child("Post").child("14_Feb_2021").addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    // This method is called once with the initial value and again
-                                    // whenever data at this location is updated.
-                                   // toastMessage("entered post");
-                                    all_post.clear();
-                                    showData(dataSnapshot);
-                                    //toastMessage("exit post");
-
-
-                                    toastMessage("size"+all_post.size());
-                                    NatureCreativePagerAdapter natureCreativePagerAdapter=new NatureCreativePagerAdapter(getContext(),all_post);
-                                    creativeViewPager=view.findViewById(R.id.creativeViewPagerView);
-                                    adapter=natureCreativePagerAdapter;
-                                    creativeViewPager.setCreativeViewPagerAdapter(adapter);
-                                }
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-                                    toastMessage(databaseError.getMessage());
-                                }
-                            });
-                        }
-                    }, 5000);
 
 
 
@@ -162,22 +201,12 @@ public class All_notices_Fragment extends Fragment {
 
     private void showData(@NotNull DataSnapshot dataSnapshot) {
         for(DataSnapshot ds : dataSnapshot.getChildren()){
-//            Post_Information post= new Post_Information();
-////
-//
-//
-//            System.out.println("............"+ds.getKey().toString());
-//            System.out.println("..........Hello............");
-//
-////
-
-//            post=ds.getValue(Post_Information.class);
 
             Post_Information post= new Post_Information();
             post=ds.getValue(Post_Information.class);
           //  toastMessage(post.getPost_edit_text());
 
-            post.setProfile_pic(image);
+
             System.out.println("############################"+post.getPost_edit_text());
             System.out.println("############################"+post.getPost_userId());
             System.out.println("############################"+post.getPost_username());
@@ -201,7 +230,6 @@ public class All_notices_Fragment extends Fragment {
         }
 
     }
-
 
 
     private void toastMessage(String message){

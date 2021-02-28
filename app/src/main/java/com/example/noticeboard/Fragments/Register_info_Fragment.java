@@ -55,7 +55,6 @@ import java.util.regex.Pattern;
 import static android.app.Activity.RESULT_OK;
 
 public class Register_info_Fragment extends Fragment implements View.OnClickListener {
-
     private static final int PICK_IMAGE_REQUEST = 1000;
     private static final String TAG = "AddToDatabase";
     //add Firebase Database stuff
@@ -342,9 +341,7 @@ public class Register_info_Fragment extends Fragment implements View.OnClickList
 
 
                     toastMessage("New Information has been saved.");
-                    Intent intent = new Intent(getActivity(), Front_Page.class);
 
-                    startActivity(intent);
                 }else{
                     toastMessage("Fill out all the fields");
                 }

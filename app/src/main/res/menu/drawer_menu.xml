@@ -5,10 +5,6 @@
     >
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_your_post"
-            android:icon="@drawable/post"
-            android:title="Your posts" />
-        <item
             android:id="@+id/nav_create_post"
             android:icon="@drawable/ic_add_post"
             android:title="Add post" />

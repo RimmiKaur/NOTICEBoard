@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/inner_background_image"
+    android:background="@drawable/wallpaper"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_centerInParent="true"
     tools:context=".Fragments.Edit_profile_Fragment">

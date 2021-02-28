@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.Make_a_post_Fragment"
-    android:background="@drawable/inner_background_image"
-
+    android:background="@drawable/wallpaper"
     android:padding="20dp">
 
     <androidx.cardview.widget.CardView

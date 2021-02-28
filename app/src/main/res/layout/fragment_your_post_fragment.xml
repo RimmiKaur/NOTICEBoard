@@ -3,12 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/wallpaper"
-    tools:context=".Fragments.List_of_groups_Fragment">
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/List_view_all_groups">
+    tools:context=".Fragments.Your_post_fragment">
 
-    </ListView>
+    <com.tbuonomo.creativeviewpager.CreativeViewPager
+        android:id="@+id/creativeViewPagerView"
+        android:layout_width="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@drawable/background"
+        android:backgroundTint="@color/white"
+        android:layout_height="match_parent"
+        />
 </RelativeLayout>
